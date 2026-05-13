@@ -27,9 +27,9 @@ export function DataSourcesModal({ onClose }: DataSourcesModalProps) {
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
           <div>
-            <h2 style={{ fontSize: 24, fontWeight: 600 }}>Data Sources</h2>
+            <h2 style={{ fontSize: 24, fontWeight: 600 }}>数据源</h2>
             <p style={{ fontSize: 14, color: 'var(--text-secondary)', marginTop: 4 }}>
-              How the Cosmic Coffee ontology binds to OneLake
+              星际咖啡本体如何绑定到 OneLake
             </p>
           </div>
           <button className="icon-btn" onClick={onClose}>
@@ -61,7 +61,7 @@ export function DataSourcesModal({ onClose }: DataSourcesModalProps) {
           <div>
             <div style={{ fontSize: 18, fontWeight: 600, marginBottom: 4 }}>Microsoft OneLake</div>
             <div style={{ fontSize: 13, color: 'var(--text-secondary)' }}>
-              Unified data lake for Microsoft Fabric. The ontology binds entity types to tables and semantic models stored here.
+              Microsoft Fabric 的统一数据湖。本体会将实体类型绑定到这里存储的表和语义模型。
             </div>
           </div>
         </div>
@@ -94,7 +94,7 @@ export function DataSourcesModal({ onClose }: DataSourcesModalProps) {
                     <div>
                       <div style={{ fontSize: 16, fontWeight: 600 }}>{entity.name}</div>
                       <div style={{ fontSize: 12, color: 'var(--text-tertiary)' }}>
-                        {entity.properties.length} properties mapped
+                        已映射 {entity.properties.length} 个属性
                       </div>
                     </div>
                   </div>
@@ -122,7 +122,7 @@ export function DataSourcesModal({ onClose }: DataSourcesModalProps) {
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
                     <Database size={14} color="var(--text-tertiary)" />
-                    <span style={{ fontSize: 13, color: 'var(--text-secondary)' }}>Source Table:</span>
+                    <span style={{ fontSize: 13, color: 'var(--text-secondary)' }}>源表：</span>
                   </div>
                   <code style={{ 
                     fontSize: 13, 
@@ -135,12 +135,12 @@ export function DataSourcesModal({ onClose }: DataSourcesModalProps) {
                 </div>
 
                 <div style={{ fontSize: 11, color: 'var(--text-tertiary)', marginBottom: 8, textTransform: 'uppercase', fontWeight: 600 }}>
-                  Column Mappings
+                  列映射
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', gap: '8px 12px', fontSize: 13 }}>
-                  <div style={{ color: 'var(--text-tertiary)', fontWeight: 600 }}>Property</div>
+                  <div style={{ color: 'var(--text-tertiary)', fontWeight: 600 }}>属性</div>
                   <div></div>
-                  <div style={{ color: 'var(--text-tertiary)', fontWeight: 600, textAlign: 'right' }}>Column</div>
+                  <div style={{ color: 'var(--text-tertiary)', fontWeight: 600, textAlign: 'right' }}>列</div>
                   {Object.entries(binding.columnMappings).map(([prop, column]) => (
                     <>
                       <div key={`${prop}-prop`} style={{ color: 'var(--text-primary)' }}>{prop}</div>
@@ -161,18 +161,17 @@ export function DataSourcesModal({ onClose }: DataSourcesModalProps) {
             textAlign: 'center'
           }}>
             <div style={{ fontSize: 14, color: 'var(--text-secondary)', marginBottom: 4 }}>
-              <strong>Other Entity Types:</strong> Store, Supplier, Shipment
+              <strong>其他实体类型：</strong>门店、供应商、发货单
             </div>
             <div style={{ fontSize: 12, color: 'var(--text-tertiary)' }}>
-              In this demo, bindings are shown for Customer, Order, and Product. 
-              In a real deployment, all entities would be bound to OneLake sources.
+              本演示展示客户、订单和产品的绑定。在真实部署中，所有实体都会绑定到 OneLake 数据源。
             </div>
           </div>
         </div>
 
         <div style={{ marginTop: 24, textAlign: 'center' }}>
           <button className="btn btn-primary" onClick={onClose}>
-            Close
+            关闭
           </button>
         </div>
       </motion.div>

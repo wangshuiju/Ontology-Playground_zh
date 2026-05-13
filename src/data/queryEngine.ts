@@ -25,11 +25,11 @@ export function generateQuerySuggestions(ontology: Ontology): string[] {
   // Entity-based queries
   if (entities.length > 0) {
     const firstEntity = entities[0];
-    suggestions.push(`Show me all ${firstEntity.name.toLowerCase()}s`);
+    suggestions.push(`显示所有${firstEntity.name}`);
     
     if (entities.length > 1) {
       const secondEntity = entities[1];
-      suggestions.push(`List all ${secondEntity.name.toLowerCase()}s`);
+      suggestions.push(`列出所有${secondEntity.name}`);
     }
   }
 
@@ -37,7 +37,7 @@ export function generateQuerySuggestions(ontology: Ontology): string[] {
   entities.forEach(entity => {
     entity.properties.forEach(prop => {
       if (prop.type === 'string' && !prop.isIdentifier && prop.name !== 'name') {
-        suggestions.push(`Show ${entity.name.toLowerCase()}s by ${prop.name}`);
+        suggestions.push(`按 ${prop.name} 查看${entity.name}`);
       }
     });
   });
@@ -48,14 +48,14 @@ export function generateQuerySuggestions(ontology: Ontology): string[] {
     const fromEntity = entities.find(e => e.id === rel.from);
     const toEntity = entities.find(e => e.id === rel.to);
     if (fromEntity && toEntity) {
-      suggestions.push(`How does ${fromEntity.name} connect to ${toEntity.name}?`);
+      suggestions.push(`${fromEntity.name} 如何连接到 ${toEntity.name}？`);
     }
   }
 
   // Conceptual queries always available
-  suggestions.push("What is an entity type?");
-  suggestions.push("What is a relationship?");
-  suggestions.push("How does ontology work?");
+  suggestions.push("什么是实体类型？");
+  suggestions.push("什么是关系？");
+  suggestions.push("本体如何工作？");
 
   // Return unique suggestions (max 6)
   return [...new Set(suggestions)].slice(0, 6);
@@ -72,30 +72,30 @@ export function processQuery(query: string, ontology: Ontology): QueryResponse {
   if (normalizedQuery.includes('what is') && (normalizedQuery.includes('entity') || normalizedQuery.includes('ontology'))) {
     return {
       query,
-      result: "An **Entity Type** is a reusable logical model of a real-world concept (like Customer, Product, or Order). In the Fabric IQ Ontology, entity types standardize:\n\n• **Name & Description** - Common terminology\n• **Properties** - Attributes with types and units\n• **Identifier** - Unique key for each instance\n\nEntity types ensure everyone in your organization uses consistent definitions.",
+      result: "**实体类型**是现实世界概念（如客户、产品或订单）的可复用逻辑模型。在 Fabric IQ 本体中，实体类型会标准化：\n\n• **名称与说明** - 统一业务术语\n• **属性** - 带类型和单位的特征\n• **标识符** - 每个实例的唯一键\n\n实体类型让组织内不同团队使用一致的定义。",
       highlightEntities: entities.slice(0, 2).map(e => e.id),
       highlightRelationships: [],
-      interpretation: "Detected: conceptual question about entity types"
+      interpretation: "已识别：关于实体类型的概念问题"
     };
   }
 
   if (normalizedQuery.includes('what is') && normalizedQuery.includes('relationship')) {
     return {
       query,
-      result: "A **Relationship** is a typed, directional link between entity types. Relationships define:\n\n• **Name** - Action verb (e.g., 'places', 'contains')\n• **Direction** - From one entity to another\n• **Cardinality** - One-to-one, one-to-many, etc.\n• **Attributes** - Optional properties on the connection\n\nRelationships let you traverse the ontology to answer complex questions.",
+      result: "**关系**是实体类型之间带类型、带方向的连接。关系会定义：\n\n• **名称** - 动作或连接语义\n• **方向** - 从一个实体指向另一个实体\n• **基数** - 一对一、一对多等\n• **属性** - 连接上的可选属性\n\n关系让你可以遍历本体并回答复杂问题。",
       highlightEntities: [],
       highlightRelationships: relationships.slice(0, 2).map(r => r.id),
-      interpretation: "Detected: conceptual question about relationships"
+      interpretation: "已识别：关于关系的概念问题"
     };
   }
 
   if (normalizedQuery.includes('how') && (normalizedQuery.includes('ontology') || normalizedQuery.includes('work'))) {
     return {
       query,
-      result: `The **${ontology.name}** ontology has:\n\n• **${entities.length} Entity Types** - ${entities.map(e => e.name).join(', ')}\n• **${relationships.length} Relationships** - Connecting entities together\n\nThe ontology acts as a semantic layer that binds to your OneLake data sources, enabling natural language queries that understand your business concepts.`,
+      result: `**${ontology.name}** 本体包含：\n\n• **${entities.length} 个实体类型** - ${entities.map(e => e.name).join('、')}\n• **${relationships.length} 条关系** - 将实体连接在一起\n\n本体作为语义层绑定到 OneLake 数据源，让自然语言查询能够理解你的业务概念。`,
       highlightEntities: entities.map(e => e.id),
       highlightRelationships: [],
-      interpretation: "Detected: question about ontology structure"
+      interpretation: "已识别：关于本体结构的问题"
     };
   }
 
@@ -120,10 +120,10 @@ export function processQuery(query: string, ontology: Ontology): QueryResponse {
 
         return {
           query,
-          result: `**${entity.name}** ${entity.icon}\n${entity.description}\n\n**Properties:**\n${propList}`,
+          result: `**${entity.name}** ${entity.icon}\n${entity.description}\n\n**属性：**\n${propList}`,
           highlightEntities: [entity.id],
           highlightRelationships: [],
-          interpretation: `Detected: definition query for ${entity.name}`
+          interpretation: `已识别：${entity.name} 的定义查询`
         };
       }
     }
@@ -149,10 +149,10 @@ export function processQuery(query: string, ontology: Ontology): QueryResponse {
       
       return {
         query,
-        result: `**${entity.name}** ${entity.icon}\n${entity.description}\n\n**Properties:**\n${propList}\n\n_In a real deployment, this would query OneLake for actual ${entityNameLower} records._`,
+        result: `**${entity.name}** ${entity.icon}\n${entity.description}\n\n**属性：**\n${propList}\n\n_在真实部署中，这会查询 OneLake 中实际的 ${entityNameLower} 记录。_`,
         highlightEntities: [entity.id],
         highlightRelationships: [],
-        interpretation: `Detected: query for ${entity.name} entities`
+        interpretation: `已识别：${entity.name} 实体查询`
       };
     }
   }
@@ -169,10 +169,10 @@ export function processQuery(query: string, ontology: Ontology): QueryResponse {
     ) {
       return {
         query,
-        result: `**${rel.name}** connects **${fromEntity?.name ?? rel.from}** to **${toEntity?.name ?? rel.to}** (${rel.cardinality}).${rel.description ? `\n\n${rel.description}` : ''}`,
+        result: `**${rel.name}** 将 **${fromEntity?.name ?? rel.from}** 连接到 **${toEntity?.name ?? rel.to}**（${rel.cardinality}）。${rel.description ? `\n\n${rel.description}` : ''}`,
         highlightEntities: [rel.from, rel.to],
         highlightRelationships: [rel.id],
-        interpretation: `Detected: relationship-name query for ${rel.name}`
+        interpretation: `已识别：${rel.name} 关系查询`
       };
     }
   }
@@ -197,10 +197,10 @@ export function processQuery(query: string, ontology: Ontology): QueryResponse {
 
         return {
           query,
-          result: `**${entity.name}** ${entity.icon} has ${relatedRels.length} connection(s):\n\n${relList}`,
+          result: `**${entity.name}** ${entity.icon} 有 ${relatedRels.length} 条连接：\n\n${relList}`,
           highlightEntities: [entity.id, ...relatedRels.map(r => r.from === entity.id ? r.to : r.from)],
           highlightRelationships: relatedRels.map(r => r.id),
-          interpretation: `Detected: relationship query for ${entity.name}`
+          interpretation: `已识别：${entity.name} 的关系查询`
         };
       }
     }
@@ -212,10 +212,10 @@ export function processQuery(query: string, ontology: Ontology): QueryResponse {
       if (normalizedQuery.includes(prop.name.toLowerCase()) && normalizedQuery.includes(entity.name.toLowerCase())) {
         return {
           query,
-          result: `**${entity.name}.${prop.name}**\n\n• Type: ${prop.type}\n${prop.unit ? `• Unit: ${prop.unit}` : ''}\n${prop.isIdentifier ? '• This is the identifier property 🔑' : ''}\n${prop.description ? `• ${prop.description}` : ''}\n\n_In production, you could filter ${entity.name.toLowerCase()}s by this property._`,
+          result: `**${entity.name}.${prop.name}**\n\n• 类型：${prop.type}\n${prop.unit ? `• 单位：${prop.unit}` : ''}\n${prop.isIdentifier ? '• 这是标识属性 🔑' : ''}\n${prop.description ? `• ${prop.description}` : ''}\n\n_在生产环境中，你可以按此属性筛选 ${entity.name.toLowerCase()}。_`,
           highlightEntities: [entity.id],
           highlightRelationships: [],
-          interpretation: `Detected: property query for ${entity.name}.${prop.name}`
+          interpretation: `已识别：${entity.name}.${prop.name} 属性查询`
         };
       }
     }
@@ -227,10 +227,10 @@ export function processQuery(query: string, ontology: Ontology): QueryResponse {
       if (normalizedQuery.includes(entity.name.toLowerCase())) {
         return {
           query,
-          result: `The ontology defines the **${entity.name}** entity type.\n\n_In production, this query would count actual ${entity.name.toLowerCase()} records from OneLake._\n\nExample: "SELECT COUNT(*) FROM ${entity.name.toLowerCase()}s"`,
+          result: `本体定义了 **${entity.name}** 实体类型。\n\n_在生产环境中，这个查询会统计 OneLake 中实际的 ${entity.name.toLowerCase()} 记录。_\n\n示例："SELECT COUNT(*) FROM ${entity.name.toLowerCase()}s"`,
           highlightEntities: [entity.id],
           highlightRelationships: [],
-          interpretation: `Detected: count query for ${entity.name}`
+          interpretation: `已识别：${entity.name} 计数查询`
         };
       }
     }
@@ -241,10 +241,10 @@ export function processQuery(query: string, ontology: Ontology): QueryResponse {
     const entityList = entities.map(e => `• ${e.icon} **${e.name}** - ${e.description.slice(0, 50)}...`).join('\n');
     return {
       query,
-      result: `**${ontology.name}** Schema Overview\n\n${entityList}\n\n**Total:** ${entities.length} entities, ${relationships.length} relationships`,
+      result: `**${ontology.name}** 架构概览\n\n${entityList}\n\n**合计：** ${entities.length} 个实体，${relationships.length} 条关系`,
       highlightEntities: entities.map(e => e.id),
       highlightRelationships: [],
-      interpretation: "Detected: schema overview request"
+      interpretation: "已识别：架构概览请求"
     };
   }
 
@@ -252,7 +252,7 @@ export function processQuery(query: string, ontology: Ontology): QueryResponse {
   const suggestions = generateQuerySuggestions(ontology).slice(0, 3);
   return {
     query,
-    result: `I couldn't interpret "${query}" for **${ontology.name}**.\n\nTry asking:\n${suggestions.map(s => `• "${s}"`).join('\n')}\n\nOr click on graph elements to explore the ontology visually.`,
+    result: `我无法针对 **${ontology.name}** 理解“${query}”。\n\n可以试着这样问：\n${suggestions.map(s => `• “${s}”`).join('\n')}\n\n也可以点击图谱元素，以可视化方式探索本体。`,
     highlightEntities: [],
     highlightRelationships: [],
     interpretation: undefined

@@ -36,22 +36,22 @@ export function RelationshipForm() {
   return (
     <div className="designer-relationship-list">
       <div className="designer-section-header">
-        <h3>Relationships ({ontology.relationships.length})</h3>
+        <h3>关系（{ontology.relationships.length}）</h3>
         <button
           className="designer-add-btn"
           onClick={handleAdd}
           disabled={entities.length < 2}
-          title={entities.length < 2 ? 'Need at least 2 entities to create a relationship' : 'Add relationship'}
+          title={entities.length < 2 ? '至少需要 2 个实体才能创建关系' : '添加关系'}
         >
-          <Plus size={14} /> Add
+          <Plus size={14} /> 添加
         </button>
       </div>
 
       {ontology.relationships.length === 0 && (
         <div className="designer-empty">
           {entities.length < 2
-            ? 'Create at least two entities first.'
-            : 'No relationships yet. Click "Add" to create one.'}
+            ? '请先创建至少两个实体。'
+            : '还没有关系。点击“添加”创建一个。'}
         </div>
       )}
 
@@ -75,7 +75,7 @@ export function RelationshipForm() {
               <button
                 className="designer-delete-btn"
                 onClick={(e) => { e.stopPropagation(); removeRelationship(rel.id); }}
-                title="Delete relationship"
+                title="删除关系"
               >
                 <Trash2 size={14} />
               </button>
@@ -85,24 +85,24 @@ export function RelationshipForm() {
               <div className="designer-rel-body">
                 {rel.from === rel.to && (
                   <div className="designer-field-hint error" style={{ marginBottom: 8 }}>
-                    ⚠️ Self-referencing relationship — Fabric IQ requires source and target entity types to be different.
+                    ⚠️ 自引用关系 — Fabric IQ 要求源实体类型和目标实体类型不同。
                   </div>
                 )}
                 {/* Name */}
                 <label className="designer-field">
-                  <span>Name</span>
+                  <span>名称</span>
                   <input
                     type="text"
                     value={rel.name}
                     onChange={(e) => updateRelationship(rel.id, { name: e.target.value })}
-                    placeholder="Relationship name"
+                    placeholder="关系名称"
                   />
                 </label>
 
                 {/* Source / Target */}
                 <div className="designer-field-row">
                   <label className="designer-field">
-                    <span>From</span>
+                    <span>起点</span>
                     <select
                       value={rel.from}
                       onChange={(e) => updateRelationship(rel.id, { from: e.target.value })}
@@ -113,7 +113,7 @@ export function RelationshipForm() {
                     </select>
                   </label>
                   <label className="designer-field">
-                    <span>To</span>
+                    <span>终点</span>
                     <select
                       value={rel.to}
                       onChange={(e) => updateRelationship(rel.id, { to: e.target.value })}
@@ -127,7 +127,7 @@ export function RelationshipForm() {
 
                 {/* Cardinality */}
                 <label className="designer-field">
-                  <span>Cardinality</span>
+                  <span>基数</span>
                   <select
                     value={rel.cardinality}
                     onChange={(e) =>
@@ -142,24 +142,24 @@ export function RelationshipForm() {
 
                 {/* Description */}
                 <label className="designer-field">
-                  <span>Description</span>
+                  <span>说明</span>
                   <textarea
                     rows={2}
                     value={rel.description ?? ''}
                     onChange={(e) => updateRelationship(rel.id, { description: e.target.value })}
-                    placeholder="Describe this relationship"
+                    placeholder="描述这条关系"
                   />
                 </label>
 
                 {/* Attributes */}
                 <div className="designer-field">
                   <div className="designer-section-header">
-                    <span>Attributes ({rel.attributes?.length ?? 0})</span>
+                    <span>属性（{rel.attributes?.length ?? 0}）</span>
                     <button
                       className="designer-add-btn small"
                       onClick={() => addRelationshipAttribute(rel.id)}
                     >
-                      <Plus size={12} /> Add
+                      <Plus size={12} /> 添加
                     </button>
                   </div>
                   {(rel.attributes ?? []).map((attr, idx) => (
@@ -171,7 +171,7 @@ export function RelationshipForm() {
                         onChange={(e) =>
                           updateRelationshipAttribute(rel.id, idx, { name: e.target.value })
                         }
-                        placeholder="Attribute name"
+                        placeholder="属性名称"
                       />
                       <input
                         className="designer-prop-type"
@@ -180,12 +180,12 @@ export function RelationshipForm() {
                         onChange={(e) =>
                           updateRelationshipAttribute(rel.id, idx, { type: e.target.value })
                         }
-                        placeholder="Type"
+                        placeholder="类型"
                       />
                       <button
                         className="designer-delete-btn small"
                         onClick={() => removeRelationshipAttribute(rel.id, idx)}
-                        title="Remove attribute"
+                        title="删除属性"
                       >
                         <Trash2 size={12} />
                       </button>

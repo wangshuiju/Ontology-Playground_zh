@@ -1,2 +1,2 @@
-This directory holds community-contributed ontologies.
-See CONTRIBUTING.md for details.
+此目录用于存放社区贡献的本体。
+详情请参阅 CONTRIBUTING.md。

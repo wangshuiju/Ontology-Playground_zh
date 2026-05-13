@@ -20,16 +20,16 @@ export interface Catalogue {
 }
 
 export const CATEGORY_LABELS: Record<string, string> = {
-  retail: 'Retail',
-  healthcare: 'Healthcare',
-  finance: 'Finance',
-  manufacturing: 'Manufacturing',
-  education: 'Education',
-  food: 'Food & Beverage',
-  media: 'Media & Publishing',
-  events: 'Events & Entertainment',
-  general: 'General',
-  school: 'Ontology School: Get Started',
+  retail: '零售',
+  healthcare: '医疗健康',
+  finance: '金融',
+  manufacturing: '制造',
+  education: '教育',
+  food: '餐饮',
+  media: '媒体与出版',
+  events: '活动与娱乐',
+  general: '通用',
+  school: '本体学院：入门',
   fibo: 'FIBO (EDM Council)',
 };
 

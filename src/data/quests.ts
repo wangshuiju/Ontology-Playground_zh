@@ -25,179 +25,179 @@ export interface QuestStep {
 export const quests: Quest[] = [
   {
     id: "quest-1",
-    title: "Meet the Entities",
-    description: "Discover the core building blocks of the Cosmic Coffee ontology by exploring entity types.",
+    title: "认识实体",
+    description: "通过探索实体类型，认识星际咖啡本体的核心构件。",
     difficulty: "beginner",
     category: "exploration",
     steps: [
       {
         id: "step-1-1",
-        instruction: "Click on the Customer entity to learn about customers",
+        instruction: "点击“客户”实体，了解客户信息",
         targetType: "entity",
         targetId: "customer",
-        hint: "Look for the 👤 icon in the graph"
+        hint: "在图谱中寻找 👤 图标"
       },
       {
         id: "step-1-2",
-        instruction: "Now explore the Product entity",
+        instruction: "现在探索“产品”实体",
         targetType: "entity",
         targetId: "product",
-        hint: "Find the ☕ coffee cup icon"
+        hint: "找到 ☕ 咖啡杯图标"
       },
       {
         id: "step-1-3",
-        instruction: "Finally, check out the Store entity",
+        instruction: "最后查看“门店”实体",
         targetType: "entity",
         targetId: "store",
-        hint: "Locate the 🏪 store icon"
+        hint: "定位 🏪 门店图标"
       }
     ],
     reward: {
-      badge: "Entity Explorer",
+      badge: "实体探索者",
       badgeIcon: "🎖️",
       points: 100
     }
   },
   {
     id: "quest-2",
-    title: "The Bean Trail",
-    description: "Trace the journey of a coffee bean from supplier to customer by following relationships.",
+    title: "咖啡豆路径",
+    description: "沿着关系追踪咖啡豆从供应商到客户的旅程。",
     difficulty: "intermediate",
     category: "traversal",
     steps: [
       {
         id: "step-2-1",
-        instruction: "Start at the Supplier entity - this is where beans originate",
+        instruction: "从“供应商”实体开始，咖啡豆从这里出发",
         targetType: "entity",
         targetId: "supplier",
-        hint: "Find the 🚚 truck icon"
+        hint: "找到 🚚 卡车图标"
       },
       {
         id: "step-2-2",
-        instruction: "Follow the 'sourcedFrom' relationship to Product",
+        instruction: "沿着“采购自”关系到达“产品”",
         targetType: "relationship",
         targetId: "product_sourced_from_supplier",
-        hint: "Click the line connecting Supplier to Product"
+        hint: "点击连接“供应商”和“产品”的连线"
       },
       {
         id: "step-2-3",
-        instruction: "Explore the 'contains' relationship to see how products appear in orders",
+        instruction: "探索“包含”关系，了解产品如何出现在订单中",
         targetType: "relationship",
         targetId: "order_contains_product",
-        hint: "Look at the connection between Order and Product"
+        hint: "查看“订单”和“产品”之间的连接"
       },
       {
         id: "step-2-4",
-        instruction: "Finally, see the 'places' relationship showing who placed the order",
+        instruction: "最后查看“下单”关系，看看是谁创建了订单",
         targetType: "relationship",
         targetId: "customer_places_order",
-        hint: "Find the relationship from Customer to Order"
+        hint: "找到从“客户”到“订单”的关系"
       }
     ],
     reward: {
-      badge: "Bean Detective",
+      badge: "咖啡豆侦探",
       badgeIcon: "🔍",
       points: 250
     }
   },
   {
     id: "quest-3",
-    title: "Supply Chain Navigator",
-    description: "Understand how shipments connect suppliers to stores.",
+    title: "供应链导航",
+    description: "了解发货单如何连接供应商和门店。",
     difficulty: "intermediate",
     category: "traversal",
     steps: [
       {
         id: "step-3-1",
-        instruction: "Click on the Shipment entity",
+        instruction: "点击“发货单”实体",
         targetType: "entity",
         targetId: "shipment",
-        hint: "Find the 📦 package icon"
+        hint: "找到 📦 包裹图标"
       },
       {
         id: "step-3-2",
-        instruction: "Explore the 'sentBy' relationship to Supplier",
+        instruction: "探索到“供应商”的“发送方”关系",
         targetType: "relationship",
         targetId: "shipment_from_supplier",
-        hint: "See where shipments come from"
+        hint: "查看发货单来自哪里"
       },
       {
         id: "step-3-3",
-        instruction: "Follow the 'deliveredTo' relationship to Store",
+        instruction: "沿着“送达至”关系到达“门店”",
         targetType: "relationship",
         targetId: "shipment_to_store",
-        hint: "See where shipments go"
+        hint: "查看发货单去往哪里"
       }
     ],
     reward: {
-      badge: "Supply Chain Master",
+      badge: "供应链达人",
       badgeIcon: "🌐",
       points: 200
     }
   },
   {
     id: "quest-4",
-    title: "Query Explorer",
-    description: "Learn to ask questions using natural language queries.",
+    title: "查询探索者",
+    description: "学习使用自然语言查询提出问题。",
     difficulty: "advanced",
     category: "query",
     steps: [
       {
         id: "step-4-1",
-        instruction: "Try asking: 'Show me all Gold tier customers'",
+        instruction: "试着提问：“显示所有金卡客户”",
         targetType: "query",
-        hint: "Type in the query playground"
+        hint: "在查询面板中输入"
       },
       {
         id: "step-4-2",
-        instruction: "Now ask: 'Which products come from Ethiopia?'",
+        instruction: "现在提问：“哪些产品来自埃塞俄比亚？”",
         targetType: "query",
-        hint: "Use natural language to filter by origin"
+        hint: "用自然语言按产地筛选"
       },
       {
         id: "step-4-3",
-        instruction: "Try a traversal query: 'What orders did Alex Rivera place?'",
+        instruction: "试一个遍历查询：“Alex Rivera 下过哪些订单？”",
         targetType: "query",
-        hint: "This follows the Customer → Order relationship"
+        hint: "这会沿着“客户 → 订单”关系查询"
       }
     ],
     reward: {
-      badge: "Query Wizard",
+      badge: "查询能手",
       badgeIcon: "🧙",
       points: 300
     }
   },
   {
     id: "quest-5",
-    title: "Data Binding Discovery",
-    description: "Learn how ontology concepts connect to real data sources in OneLake.",
+    title: "数据绑定发现",
+    description: "了解本体概念如何连接到 OneLake 中的真实数据源。",
     difficulty: "advanced",
     category: "exploration",
     steps: [
       {
         id: "step-5-1",
-        instruction: "Select the Customer entity and view its data bindings",
+        instruction: "选择“客户”实体并查看它的数据绑定",
         targetType: "entity",
         targetId: "customer",
-        hint: "Look for the 'Data Bindings' section in the inspector"
+        hint: "在检查器中查找“数据绑定”部分"
       },
       {
         id: "step-5-2",
-        instruction: "Examine how Customer properties map to lakehouse columns",
+        instruction: "检查“客户”属性如何映射到 Lakehouse 列",
         targetType: "property",
         targetId: "name",
-        hint: "Notice how 'name' maps to 'full_name' in the source"
+        hint: "注意“name”如何映射到源中的“full_name”"
       },
       {
         id: "step-5-3",
-        instruction: "Check the Product entity's binding to see Power BI semantic model connection",
+        instruction: "查看“产品”实体的绑定，了解 Power BI 语义模型连接",
         targetType: "entity",
         targetId: "product",
-        hint: "Products connect to a Power BI semantic model"
+        hint: "产品连接到 Power BI 语义模型"
       }
     ],
     reward: {
-      badge: "Binding Expert",
+      badge: "绑定专家",
       badgeIcon: "🔗",
       points: 350
     }
@@ -217,63 +217,63 @@ export const nlQueryResponses: QueryResponse[] = [
   {
     query: "show me all gold tier customers",
     matches: ["gold tier", "gold customers", "customers gold"],
-    result: "Found 1 Gold tier customer:\n• Alex Rivera (CUST-001) - Gold tier since 2024",
+    result: "找到 1 位金卡客户：\n• Alex Rivera (CUST-001) - 2024 年起为金卡等级",
     highlightEntities: ["customer"],
     highlightRelationships: []
   },
   {
     query: "which products come from ethiopia",
     matches: ["products ethiopia", "ethiopian", "from ethiopia"],
-    result: "Found 1 product from Ethiopia:\n• Ethiopian Single Origin (☕ Brewed) - $4.50\n  Sourced from: Ethiopia Highlands Farm",
+    result: "找到 1 个来自埃塞俄比亚的产品：\n• Ethiopian Single Origin（☕ 冲煮咖啡）- $4.50\n  采购自：Ethiopia Highlands Farm",
     highlightEntities: ["product", "supplier"],
     highlightRelationships: ["product_sourced_from_supplier"]
   },
   {
     query: "what orders did alex rivera place",
     matches: ["orders alex", "alex rivera orders", "alex placed"],
-    result: "Alex Rivera's orders:\n• ORD-2025-001 - $12.50 (Completed)\n  Items: Ethiopian Single Origin x2, Cosmic Latte x1\n  Store: Downtown Seattle",
+    result: "Alex Rivera 的订单：\n• ORD-2025-001 - $12.50（已完成）\n  商品：Ethiopian Single Origin x2, Cosmic Latte x1\n  门店：Downtown Seattle",
     highlightEntities: ["customer", "order", "store"],
     highlightRelationships: ["customer_places_order", "order_processed_at_store"]
   },
   {
     query: "how many stores are in seattle",
     matches: ["stores seattle", "seattle stores", "how many stores"],
-    result: "Found 2 stores in Seattle:\n• Cosmic Coffee - Downtown Seattle (45 seats)\n• Cosmic Coffee - Capitol Hill (32 seats)",
+    result: "在西雅图找到 2 家门店：\n• Cosmic Coffee - Downtown Seattle（45 个座位）\n• Cosmic Coffee - Capitol Hill（32 个座位）",
     highlightEntities: ["store"],
     highlightRelationships: []
   },
   {
     query: "show supply chain for cosmic latte",
     matches: ["supply chain", "cosmic latte", "where does cosmic latte come from"],
-    result: "Supply chain for Cosmic Latte:\n• Bean Origin: Colombia 🇨🇴\n• Supplier: Colombian Mountain Roasters\n• Certification: Rainforest Alliance 🌿\n• Latest Shipment: SHIP-001 (Delivered Jan 27)",
+    result: "Cosmic Latte 的供应链：\n• 咖啡豆产地：哥伦比亚 🇨🇴\n• 供应商：Colombian Mountain Roasters\n• 认证：Rainforest Alliance 🌿\n• 最新发货单：SHIP-001（1 月 27 日已送达）",
     highlightEntities: ["product", "supplier", "shipment"],
     highlightRelationships: ["product_sourced_from_supplier", "shipment_from_supplier"]
   },
   {
     query: "what is an entity type",
     matches: ["what is entity", "entity type", "define entity"],
-    result: "An Entity Type is a reusable logical model of a real-world concept (like Customer, Product, or Order). It standardizes the name, description, identifiers, and properties so every team means the same thing when using a term.",
+    result: "实体类型是现实世界概念（如客户、产品或订单）的可复用逻辑模型。它统一名称、说明、标识符和属性，让不同团队使用同一术语时含义一致。",
     highlightEntities: [],
     highlightRelationships: []
   },
   {
     query: "what is a relationship",
     matches: ["what is relationship", "define relationship", "relationships"],
-    result: "A Relationship is a typed, directional link between entity types. For example, 'Customer places Order' defines how customers connect to their orders. Relationships can have attributes like quantity or confidence.",
+    result: "关系是实体类型之间带类型、带方向的连接。例如“客户下单订单”定义了客户如何连接到订单。关系也可以拥有数量、置信度等属性。",
     highlightEntities: [],
     highlightRelationships: []
   },
   {
     query: "show me platinum customers",
     matches: ["platinum", "platinum customers", "customers platinum"],
-    result: "Found 1 Platinum tier customer:\n• Jordan Chen (CUST-002) - Platinum tier\n  Total spend: $3,420.00\n  Member since: Jan 2023",
+    result: "找到 1 位白金客户：\n• Jordan Chen (CUST-002) - 白金等级\n  总消费：$3,420.00\n  2023 年 1 月加入",
     highlightEntities: ["customer"],
     highlightRelationships: []
   },
   {
     query: "list all organic products",
     matches: ["organic", "organic products", "is organic"],
-    result: "Found 2 organic products:\n• Ethiopian Single Origin (Brewed) - $4.50 🌱\n• Nebula Cold Brew (Cold Brew) - $5.25 🌱",
+    result: "找到 2 个有机产品：\n• Ethiopian Single Origin（冲煮咖啡）- $4.50 🌱\n• Nebula Cold Brew（冷萃）- $5.25 🌱",
     highlightEntities: ["product"],
     highlightRelationships: []
   }

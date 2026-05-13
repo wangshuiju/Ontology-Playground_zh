@@ -8,6 +8,7 @@ import { highlightRdf, RDF_HIGHLIGHT_DARK, RDF_HIGHLIGHT_LIGHT } from '../lib/rd
 import { navigate, parseHash } from '../lib/router';
 import type { CatalogueEntry, Catalogue } from '../types/catalogue';
 import { CATEGORY_COLORS, CATEGORY_LABELS } from '../types/catalogue';
+import { localizedCatalogueEntry } from '../lib/localization';
 
 interface GalleryModalProps {
   onClose: () => void;
@@ -47,11 +48,11 @@ export function GalleryModal({ onClose }: GalleryModalProps) {
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}catalogue.json`)
       .then((res) => {
-        if (!res.ok) throw new Error(`Failed to load catalogue (${res.status})`);
+        if (!res.ok) throw new Error(`目录加载失败（${res.status}）`);
         return res.json() as Promise<Catalogue>;
       })
       .then((data) => {
-        setCatalogue(data.entries);
+        setCatalogue(data.entries.map(localizedCatalogueEntry));
         setLoading(false);
       })
       .catch((err) => {
@@ -144,9 +145,9 @@ export function GalleryModal({ onClose }: GalleryModalProps) {
         {/* Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
           <div>
-            <h2 style={{ fontSize: 24, fontWeight: 600 }}>Ontology Gallery</h2>
+            <h2 style={{ fontSize: 24, fontWeight: 600 }}>本体目录</h2>
             <p style={{ fontSize: 14, color: 'var(--text-secondary)', marginTop: 4 }}>
-              Browse and load ontologies from the catalogue
+              浏览并加载目录中的本体
             </p>
           </div>
           <button className="icon-btn" onClick={onClose}>
@@ -160,7 +161,7 @@ export function GalleryModal({ onClose }: GalleryModalProps) {
             <Search size={16} style={{ position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-tertiary)' }} />
             <input
               type="text"
-              placeholder="Search by name, tag, author…"
+              placeholder="按名称、标签、作者搜索…"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               style={{
@@ -194,10 +195,10 @@ export function GalleryModal({ onClose }: GalleryModalProps) {
               fontSize: 13,
             }}
           >
-            <option value="all">All sources</option>
-            <option value="official">Official</option>
-            <option value="external">External</option>
-            <option value="community">Community</option>
+            <option value="all">全部来源</option>
+            <option value="official">官方</option>
+            <option value="external">外部</option>
+            <option value="community">社区</option>
           </select>
           <select
             value={categoryFilter}
@@ -219,7 +220,7 @@ export function GalleryModal({ onClose }: GalleryModalProps) {
               fontSize: 13,
             }}
           >
-            <option value="all">All categories</option>
+            <option value="all">全部分类</option>
             {categories.map((cat) => (
               <option key={cat} value={cat}>
                 {CATEGORY_LABELS[cat] ?? cat}
@@ -231,7 +232,7 @@ export function GalleryModal({ onClose }: GalleryModalProps) {
         {/* Loading / Error / Empty */}
         {loading && (
           <div style={{ textAlign: 'center', padding: 40, color: 'var(--text-secondary)' }}>
-            Loading catalogue…
+            目录加载中…
           </div>
         )}
         {error && (
@@ -241,14 +242,14 @@ export function GalleryModal({ onClose }: GalleryModalProps) {
         )}
         {!loading && !error && filtered.length === 0 && (
           <div style={{ textAlign: 'center', padding: 40, color: 'var(--text-secondary)' }}>
-            No ontologies match your filters.
+            没有本体匹配当前筛选条件。
           </div>
         )}
 
         {/* Result count */}
         {!loading && !error && filtered.length > 0 && (
           <div style={{ fontSize: 12, color: 'var(--text-tertiary)', marginBottom: 8 }}>
-            Showing {Math.min(visibleCount, filtered.length)} of {filtered.length} ontolog{filtered.length === 1 ? 'y' : 'ies'}
+            正在显示 {Math.min(visibleCount, filtered.length)} / {filtered.length} 个本体
           </div>
         )}
 
@@ -321,7 +322,7 @@ export function GalleryModal({ onClose }: GalleryModalProps) {
                                 fontWeight: 500,
                               }}
                             >
-                              Community
+                              社区
                             </span>
                           )}
                           {entry.source === 'external' && (
@@ -335,7 +336,7 @@ export function GalleryModal({ onClose }: GalleryModalProps) {
                                 fontWeight: 500,
                               }}
                             >
-                              External
+                              外部
                             </span>
                           )}
                         </div>
@@ -352,7 +353,7 @@ export function GalleryModal({ onClose }: GalleryModalProps) {
                           fontWeight: 600,
                         }}
                       >
-                        Active
+                        已加载
                       </div>
                     )}
                   </div>
@@ -403,13 +404,13 @@ export function GalleryModal({ onClose }: GalleryModalProps) {
                       <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                         <Layers size={14} color="var(--text-tertiary)" />
                         <span style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
-                          {entry.ontology.entityTypes.length} entities
+                          {entry.ontology.entityTypes.length} 个实体
                         </span>
                       </div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                         <ArrowRight size={14} color="var(--text-tertiary)" />
                         <span style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
-                          {entry.ontology.relationships.length} relationships
+                          {entry.ontology.relationships.length} 条关系
                         </span>
                       </div>
                     </div>
@@ -418,7 +419,7 @@ export function GalleryModal({ onClose }: GalleryModalProps) {
                       <button
                         className="btn btn-secondary"
                         style={{ padding: '5px 8px', fontSize: 11 }}
-                        title="View RDF source"
+                        title="查看 RDF 源码"
                         onClick={(e) => {
                           e.stopPropagation();
                           handleViewRdf(entry);
@@ -429,7 +430,7 @@ export function GalleryModal({ onClose }: GalleryModalProps) {
                       <button
                         className="btn btn-secondary"
                         style={{ padding: '5px 8px', fontSize: 11 }}
-                        title={copiedEmbedId === entry.id ? 'Copied!' : 'Copy embed code'}
+                        title={copiedEmbedId === entry.id ? '已复制' : '复制嵌入代码'}
                         onClick={(e) => {
                           e.stopPropagation();
                           handleCopyEmbed(entry);
@@ -440,7 +441,7 @@ export function GalleryModal({ onClose }: GalleryModalProps) {
                       <button
                         className="btn btn-secondary"
                         style={{ padding: '5px 8px', fontSize: 11 }}
-                        title="Edit in Designer"
+                        title="在设计器中编辑"
                         onClick={(e) => {
                           e.stopPropagation();
                           // Load into both stores: playground (appStore) and designer
@@ -463,7 +464,7 @@ export function GalleryModal({ onClose }: GalleryModalProps) {
                             handleLoadOntology(entry);
                           }}
                         >
-                          Load
+                          加载
                         </button>
                       )}
                     </div>
@@ -495,7 +496,7 @@ export function GalleryModal({ onClose }: GalleryModalProps) {
                 style={{ padding: '8px 24px', fontSize: 13 }}
                 onClick={handleShowMore}
               >
-                Show more ({filtered.length - visibleCount} remaining)
+                显示更多（剩余 {filtered.length - visibleCount} 个）
               </button>
             </div>
           )}
@@ -513,7 +514,7 @@ export function GalleryModal({ onClose }: GalleryModalProps) {
           }}
         >
           <p style={{ fontSize: 13, color: 'var(--text-secondary)' }}>
-            Want to contribute? See{' '}
+            想要贡献内容？请查看{' '}
             <a
               href="https://github.com/microsoft/Ontology-Playground/blob/main/CONTRIBUTING.md"
               target="_blank"
@@ -526,7 +527,7 @@ export function GalleryModal({ onClose }: GalleryModalProps) {
             >
               <strong>CONTRIBUTING.md</strong>
             </a>
-            {' '}— add your ontology as an RDF file and{' '}
+            {' '}，以 RDF 文件形式添加你的本体并{' '}
             <a
               href="https://github.com/microsoft/Ontology-Playground/fork"
               target="_blank"
@@ -537,7 +538,7 @@ export function GalleryModal({ onClose }: GalleryModalProps) {
                 cursor: 'pointer',
               }}
             >
-              open a PR
+              提交 PR
             </a>
             .
           </p>
@@ -545,7 +546,7 @@ export function GalleryModal({ onClose }: GalleryModalProps) {
 
         <div style={{ marginTop: 20, textAlign: 'center' }}>
           <button className="btn btn-primary" onClick={onClose}>
-            Done
+            完成
           </button>
         </div>
       </motion.div>

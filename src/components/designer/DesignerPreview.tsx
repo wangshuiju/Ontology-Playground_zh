@@ -22,7 +22,7 @@ export function DesignerPreview() {
           className={`designer-tab ${activeTab === 'graph' ? 'active' : ''}`}
           onClick={() => setActiveTab('graph')}
         >
-          Graph
+          图谱
         </button>
         <button
           className={`designer-tab ${activeTab === 'rdf' ? 'active' : ''}`}
@@ -235,7 +235,7 @@ function RdfPreview({ ontology, onImported }: RdfPreviewProps) {
   try {
     rdfOutput = serializeToRDF(ontology as Parameters<typeof serializeToRDF>[0], []);
   } catch {
-    rdfOutput = '<!-- Ontology is incomplete or invalid; fix errors to see RDF output -->';
+    rdfOutput = '<!-- 本体不完整或无效；修复错误后可查看 RDF 输出 -->';
   }
 
   const darkMode = useAppStore((s) => s.darkMode);
@@ -252,7 +252,7 @@ function RdfPreview({ ontology, onImported }: RdfPreviewProps) {
   const handleImport = () => {
     const trimmed = importText.trim();
     if (!trimmed) {
-      setImportError('Paste RDF/XML content first');
+      setImportError('请先粘贴 RDF/XML 内容');
       return;
     }
     try {
@@ -263,7 +263,7 @@ function RdfPreview({ ontology, onImported }: RdfPreviewProps) {
       setImportError(null);
       onImported();
     } catch (err) {
-      setImportError(err instanceof Error ? err.message : 'Failed to parse RDF');
+      setImportError(err instanceof Error ? err.message : 'RDF 解析失败');
     }
   };
 
@@ -279,19 +279,19 @@ function RdfPreview({ ontology, onImported }: RdfPreviewProps) {
         {importMode ? (
           <>
             <button className="designer-add-btn small" onClick={handleImport}>
-              Load into Designer
+              加载到设计器
             </button>
             <button className="designer-add-btn small secondary" onClick={handleCancel}>
-              Cancel
+              取消
             </button>
           </>
         ) : (
           <>
             <button className="designer-add-btn small" onClick={() => { setImportMode(true); setImportText(rdfOutput); }}>
-              Edit RDF
+              编辑 RDF
             </button>
             <button className="designer-add-btn small" onClick={handleCopy}>
-              {copied ? 'Copied!' : 'Copy RDF'}
+              {copied ? '已复制' : '复制 RDF'}
             </button>
           </>
         )}
@@ -304,7 +304,7 @@ function RdfPreview({ ontology, onImported }: RdfPreviewProps) {
           className="designer-rdf-source designer-rdf-textarea"
           value={importText}
           onChange={(e) => { setImportText(e.target.value); setImportError(null); }}
-          placeholder="Paste or edit RDF/XML content here…"
+          placeholder="在这里粘贴或编辑 RDF/XML 内容…"
           autoFocus
           spellCheck={false}
         />

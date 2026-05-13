@@ -1,6 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { useAppStore } from '../store/appStore';
 import { Database, ArrowRight, Key, Link2, Layers, Box, GitBranch } from 'lucide-react';
+import { cardinality } from '../lib/localization';
 
 export function InspectorPanel() {
   const { currentOntology, dataBindings, selectedEntityId, selectedRelationshipId, showDataBindings, activeQuest, currentStepIndex, advanceQuestStep } = useAppStore();
@@ -16,13 +17,13 @@ export function InspectorPanel() {
     return (
       <div ref={panelRef} className="inspector-panel">
         <div className="panel-header">
-          <h3 className="panel-title">Inspector</h3>
+          <h3 className="panel-title">检查器</h3>
         </div>
         <div className="inspector-empty">
           <div className="inspector-empty-icon">🔍</div>
-          <div className="inspector-empty-title">Select an Element</div>
+          <div className="inspector-empty-title">选择一个元素</div>
           <div className="inspector-empty-text">
-            Click on an entity type or relationship in the graph to inspect its properties, data bindings, and connections.
+            点击图谱中的实体类型或关系，查看它的属性、数据绑定和连接。
           </div>
         </div>
       </div>
@@ -39,7 +40,7 @@ export function InspectorPanel() {
     return (
       <div ref={panelRef} className="inspector-panel">
         <div className="panel-header">
-          <h3 className="panel-title">Relationship</h3>
+          <h3 className="panel-title">关系</h3>
         </div>
         <div className="inspector-content">
           <div className="relationship-header">
@@ -70,16 +71,16 @@ export function InspectorPanel() {
           <div className="inspector-section">
             <div className="section-title">
               <Layers size={14} />
-              Cardinality
+              基数
             </div>
-            <div className="cardinality-badge">{relationship.cardinality}</div>
+            <div className="cardinality-badge">{cardinality(relationship.cardinality)}</div>
           </div>
 
           {relationship.attributes && relationship.attributes.length > 0 && (
             <div className="inspector-section">
               <div className="section-title">
                 <Box size={14} />
-                Relationship Attributes
+                关系属性
               </div>
               <div className="property-list">
                 {relationship.attributes.map(attr => (
@@ -109,7 +110,7 @@ export function InspectorPanel() {
   return (
     <div ref={panelRef} className="inspector-panel">
       <div className="panel-header">
-        <h3 className="panel-title">Entity Type</h3>
+          <h3 className="panel-title">实体类型</h3>
       </div>
       <div className="inspector-content">
         <div className="entity-header">
@@ -125,7 +126,7 @@ export function InspectorPanel() {
         <div className="inspector-section">
           <div className="section-title">
             <Key size={14} />
-            Properties ({entity.properties.length})
+            属性（{entity.properties.length}）
           </div>
           <div className="property-list">
             {entity.properties.map(prop => (
@@ -151,7 +152,7 @@ export function InspectorPanel() {
         <div className="inspector-section">
           <div className="section-title">
             <GitBranch size={14} />
-            Relationships ({entityRelationships.length})
+            关系（{entityRelationships.length}）
           </div>
           <div className="property-list">
             {entityRelationships.map(rel => {
@@ -176,7 +177,7 @@ export function InspectorPanel() {
                       </>
                     )}
                   </div>
-                  <div className="rel-item-cardinality">{rel.cardinality}</div>
+                  <div className="rel-item-cardinality">{cardinality(rel.cardinality)}</div>
                 </div>
               );
             })}
@@ -187,7 +188,7 @@ export function InspectorPanel() {
           <div className="inspector-section">
             <div className="section-title">
               <Link2 size={14} />
-              Data Bindings
+              数据绑定
             </div>
             <div className="binding-card">
               <div className="binding-source">

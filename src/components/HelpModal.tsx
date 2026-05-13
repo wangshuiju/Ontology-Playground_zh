@@ -23,7 +23,7 @@ export function HelpModal({ onClose }: HelpModalProps) {
         style={{ maxWidth: 700 }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
-          <h2 style={{ fontSize: 24, fontWeight: 600 }}>How to Use Ontology Playground (Preview)</h2>
+          <h2 style={{ fontSize: 24, fontWeight: 600 }}>如何使用本体游乐场（预览版）</h2>
           <button className="icon-btn" onClick={onClose}>
             <X size={20} />
           </button>
@@ -33,44 +33,41 @@ export function HelpModal({ onClose }: HelpModalProps) {
           <div className="feature-card">
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
               <MousePointer size={20} color="var(--ms-blue)" />
-              <span className="feature-title" style={{ marginBottom: 0 }}>Explore the Graph</span>
+              <span className="feature-title" style={{ marginBottom: 0 }}>探索图谱</span>
             </div>
             <p className="feature-text">
-              Click on any <strong>entity type</strong> (colored node) to see its properties, relationships, and data bindings. 
-              Click on <strong>relationship lines</strong> to see how entities connect. Use the controls in the bottom-left to zoom and reset the layout.
+              点击任意<strong>实体类型</strong>（彩色节点）查看其属性、关系和数据绑定。
+              点击<strong>关系连线</strong>查看实体如何连接。使用左下角控件缩放或重置布局。
             </p>
           </div>
 
           <div className="feature-card">
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
               <Target size={20} color="var(--ms-purple)" />
-              <span className="feature-title" style={{ marginBottom: 0 }}>Complete Quests</span>
+              <span className="feature-title" style={{ marginBottom: 0 }}>完成任务</span>
             </div>
             <p className="feature-text">
-              Select a quest from the left panel to start a guided journey. Follow the instructions to click on specific entities 
-              or relationships. Complete all steps to earn <strong>badges</strong> and <strong>points</strong>!
+              从左侧面板选择任务，开始引导式探索。按说明点击指定实体或关系，完成全部步骤即可获得<strong>徽章</strong>和<strong>积分</strong>。
             </p>
           </div>
 
           <div className="feature-card">
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
               <MessageSquare size={20} color="var(--ms-yellow)" />
-              <span className="feature-title" style={{ marginBottom: 0 }}>Ask Natural Language Questions</span>
+              <span className="feature-title" style={{ marginBottom: 0 }}>提出自然语言问题</span>
             </div>
             <p className="feature-text">
-              Use the query playground in the bottom-right to ask questions like "Show me Gold tier customers" or 
-              "Which products come from Ethiopia?". The graph will highlight relevant entities and relationships.
+              使用右下角查询面板提问，例如“显示所有金卡客户”或“哪些产品来自埃塞俄比亚？”。图谱会高亮相关实体和关系。
             </p>
           </div>
 
           <div className="feature-card">
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
               <Link2 size={20} color="var(--ms-green)" />
-              <span className="feature-title" style={{ marginBottom: 0 }}>View Data Bindings</span>
+              <span className="feature-title" style={{ marginBottom: 0 }}>查看数据绑定</span>
             </div>
             <p className="feature-text">
-              When you select an entity type, the inspector shows how ontology properties map to real data sources in OneLake, 
-              including lakehouse tables and Power BI semantic models.
+              选择实体类型后，检查器会显示本体属性如何映射到 OneLake 中的真实数据源，包括 Lakehouse 表和 Power BI 语义模型。
             </p>
           </div>
 
@@ -84,10 +81,9 @@ export function HelpModal({ onClose }: HelpModalProps) {
           }}>
             <Lightbulb size={20} color="var(--ms-blue)" style={{ flexShrink: 0, marginTop: 2 }} />
             <div>
-              <strong style={{ color: 'var(--ms-blue)' }}>About Microsoft Fabric IQ Ontology</strong>
+              <strong style={{ color: 'var(--ms-blue)' }}>关于 Microsoft Fabric IQ 本体</strong>
               <p style={{ fontSize: 13, color: 'var(--text-secondary)', marginTop: 4, lineHeight: 1.5 }}>
-                An ontology is a shared, machine-understandable vocabulary of your business. It defines entity types (like Customer, Product), 
-                their properties, and relationships. This demo uses a fictional "Cosmic Coffee Company" to illustrate these concepts.
+                本体是业务中可共享、机器可理解的词汇体系。它定义实体类型（如客户、产品）、属性和关系。本演示使用虚构的“星际咖啡公司”说明这些概念。
               </p>
             </div>
           </div>
@@ -95,21 +91,21 @@ export function HelpModal({ onClose }: HelpModalProps) {
           <div className="feature-card">
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
               <Command size={20} color="var(--ms-blue)" />
-              <span className="feature-title" style={{ marginBottom: 0 }}>Keyboard Shortcuts</span>
+              <span className="feature-title" style={{ marginBottom: 0 }}>键盘快捷键</span>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '6px 16px', fontSize: 13, color: 'var(--text-secondary)' }}>
-              <kbd className="help-kbd">⌘K</kbd><span>Open command palette</span>
-              <kbd className="help-kbd">?</kbd><span>Open this help dialog</span>
-              <kbd className="help-kbd">Esc</kbd><span>Close any dialog</span>
-              <kbd className="help-kbd">↑ ↓</kbd><span>Navigate palette results</span>
-              <kbd className="help-kbd">↵</kbd><span>Select palette command</span>
+              <kbd className="help-kbd">⌘K</kbd><span>打开命令面板</span>
+              <kbd className="help-kbd">?</kbd><span>打开此帮助窗口</span>
+              <kbd className="help-kbd">Esc</kbd><span>关闭任意对话框</span>
+              <kbd className="help-kbd">↑ ↓</kbd><span>浏览命令面板结果</span>
+              <kbd className="help-kbd">↵</kbd><span>选择命令</span>
             </div>
           </div>
         </div>
 
         <div style={{ marginTop: 24, textAlign: 'center' }}>
           <button className="btn btn-primary" onClick={onClose}>
-            Got it!
+            明白了！
           </button>
         </div>
       </motion.div>

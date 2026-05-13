@@ -4,6 +4,7 @@ import { quests as defaultQuests } from '../data/quests';
 import type { Ontology, DataBinding } from '../data/ontology';
 import { cosmicCoffeeOntology, sampleBindings } from '../data/ontology';
 import { generateQuestsForOntology } from '../data/questGenerator';
+import { localizedOntology } from '../lib/localization';
 
 function getInitialDarkMode(): boolean {
   if (typeof window === 'undefined' || !('localStorage' in window)) {
@@ -71,7 +72,7 @@ interface AppState {
 
 export const useAppStore = create<AppState>((set, get) => ({
   // Initial Ontology State
-  currentOntology: cosmicCoffeeOntology,
+  currentOntology: localizedOntology(cosmicCoffeeOntology),
   dataBindings: sampleBindings,
   
   // Initial UI State
@@ -97,9 +98,10 @@ export const useAppStore = create<AppState>((set, get) => ({
   // Ontology Actions
   loadOntology: (ontology, bindings = []) => {
     // Generate new quests based on the loaded ontology
-    const newQuests = generateQuestsForOntology(ontology);
+    const localized = localizedOntology(ontology);
+    const newQuests = generateQuestsForOntology(localized);
     set({
-      currentOntology: ontology,
+      currentOntology: localized,
       dataBindings: bindings,
       selectedEntityId: null,
       selectedRelationshipId: null,
@@ -114,7 +116,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   },
   
   resetToDefault: () => set({
-    currentOntology: cosmicCoffeeOntology,
+    currentOntology: localizedOntology(cosmicCoffeeOntology),
     dataBindings: sampleBindings,
     selectedEntityId: null,
     selectedRelationshipId: null,
